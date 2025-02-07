@@ -1,0 +1,14 @@
+# Ignorar archivos generados
+/build/
+/bin/
+
+# Archivos temporales de Qt
+*.moc
+*.ui
+*.pro.user
+
+# Archivos de compilación
+*.o
+*.a
+*.exe
+*.log
