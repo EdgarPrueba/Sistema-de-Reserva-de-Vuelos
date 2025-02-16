@@ -1,3 +1,6 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -74,3 +77,5 @@ class Graph {
             return false;
         }
 };
+
+#endif // GRAPH_H
