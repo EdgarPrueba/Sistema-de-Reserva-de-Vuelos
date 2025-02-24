@@ -57,3 +57,8 @@ bool Graph::removeEdge(string vertex1, string vertex2) {
     }
     return false;
 }
+
+// Implementación del método getEdges para obtener las aristas del grafo
+const unordered_map<string, unordered_map<string, double>>& Graph::getEdges() const {
+    return adjMatrix;
+}

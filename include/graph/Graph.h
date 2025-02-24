@@ -26,6 +26,9 @@ class Graph {
 
         // Método para eliminar una conexión
         bool removeEdge(string vertex1, string vertex2);
+
+        // Implementación del método getEdges para obtener las aristas del grafo
+        const unordered_map<string, unordered_map<string, double>>& getEdges() const;
 };
 
 #endif // GRAPH_H
