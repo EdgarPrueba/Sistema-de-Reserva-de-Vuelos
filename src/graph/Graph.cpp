@@ -62,3 +62,11 @@ bool Graph::removeEdge(string vertex1, string vertex2) {
 const unordered_map<string, unordered_map<string, double>>& Graph::getEdges() const {
     return adjMatrix;
 }
+
+// Método para obtener aristas de un vértice específico
+const unordered_map<std::string, double> Graph::getEdges(string vertex) const {
+    if (adjMatrix.count(vertex) != 0) { // Si encuentra el elemento en el mapa
+        return adjMatrix.at(vertex); // Retornar los las conexiones del vértice específico
+    }
+    return {}; // Si no encuentra el elemento en el mapa, retornar mapa vacío
+}

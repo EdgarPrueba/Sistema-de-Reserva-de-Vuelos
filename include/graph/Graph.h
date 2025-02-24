@@ -29,6 +29,9 @@ class Graph {
 
         // Implementación del método getEdges para obtener las aristas del grafo
         const unordered_map<string, unordered_map<string, double>>& getEdges() const;
+
+        // Método para obtener aristas de un vértice específico
+        const unordered_map<std::string, double> getEdges(string vertex) const;
 };
 
 #endif // GRAPH_H
