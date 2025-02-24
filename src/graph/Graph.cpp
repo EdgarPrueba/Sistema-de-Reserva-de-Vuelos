@@ -58,6 +58,18 @@ bool Graph::removeEdge(string vertex1, string vertex2) {
     return false;
 }
 
+// Método para modificar el peso de una conexión
+bool Graph::modifyEdge(string vertex1, string vertex2, double weight) {
+    if (adjMatrix.count(vertex1) != 0 && adjMatrix.count(vertex2) != 0) {
+        if (adjMatrix[vertex1].count(vertex2) != 0) { // Verifica si la arista ya existe
+            adjMatrix[vertex1][vertex2] = weight;
+            adjMatrix[vertex2][vertex1] = weight;
+            return true;
+        }
+    }
+    return false;
+}
+
 // Implementación del método getEdges para obtener las aristas del grafo
 const unordered_map<string, unordered_map<string, double>>& Graph::getEdges() const {
     return adjMatrix;
