@@ -23,11 +23,12 @@ void testGraph() {
     graph.addEdge("Estambul", "NuevaYork", 800);
     graph.addEdge("Doha", "Chicago", 700);
     graph.addEdge("París", "Costa Rica", 1100);
+    graph.modifyEdge("París", "Costa Rica", 1200);
+
+    graph.printGraph();
 
     // Prueba de eliminar una ciudad
     graph.removeVertex("París");
-
-    graph.printGraph();
     
     cout << "\nTodas las pruebas pasaron correctamente." << endl;
 }

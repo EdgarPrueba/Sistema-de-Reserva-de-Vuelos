@@ -28,7 +28,7 @@ class Graph {
         bool removeEdge(string vertex1, string vertex2);
 
         // Método para modificar el peso de una conexión
-        bool Graph::modifyEdge(string vertex1, string vertex2, double weight);
+        bool modifyEdge(string vertex1, string vertex2, double weight);
 
         // Implementación del método getEdges para obtener las aristas del grafo
         const unordered_map<string, unordered_map<string, double>>& getEdges() const;

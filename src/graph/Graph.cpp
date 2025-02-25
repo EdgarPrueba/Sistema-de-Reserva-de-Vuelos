@@ -29,9 +29,11 @@ bool Graph::addVertex(string vertex) {
 // Método para añadir una conexión
 bool Graph::addEdge(string vertex1, string vertex2, double weight) {
     if (adjMatrix.count(vertex1) != 0 && adjMatrix.count(vertex2) != 0) {
-        adjMatrix[vertex1][vertex2] = weight;
-        adjMatrix[vertex2][vertex1] = weight;
-        return true;
+        if (adjMatrix[vertex1].count(vertex2) == 0 || adjMatrix[vertex2].count(vertex1) == 0) {
+            adjMatrix[vertex1][vertex2] = weight;
+            adjMatrix[vertex2][vertex1] = weight;
+            return true;
+        }
     }
     return false;
 }
@@ -61,7 +63,7 @@ bool Graph::removeEdge(string vertex1, string vertex2) {
 // Método para modificar el peso de una conexión
 bool Graph::modifyEdge(string vertex1, string vertex2, double weight) {
     if (adjMatrix.count(vertex1) != 0 && adjMatrix.count(vertex2) != 0) {
-        if (adjMatrix[vertex1].count(vertex2) != 0) { // Verifica si la arista ya existe
+        if (adjMatrix[vertex1].count(vertex2) != 0 || adjMatrix[vertex2].count(vertex1) != 0) { // Verifica si la arista ya existe
             adjMatrix[vertex1][vertex2] = weight;
             adjMatrix[vertex2][vertex1] = weight;
             return true;
