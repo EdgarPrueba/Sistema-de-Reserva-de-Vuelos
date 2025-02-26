@@ -1,5 +1,7 @@
 #include "../../include/persistence/FileManager.h"
 #include "../../include/graph/Graph.h"
+#include "../../include/algorithms/Dijkstra.h"
+
 
 using namespace std;
 
@@ -10,8 +12,16 @@ int main() {
     // Guardar una copia del grafo
     FileManager::saveGraphToCSV(graph, "src/data/ciudades_copy.csv");
 
-    // Imprimir el grafo
-    graph.printGraph();
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "                   Ruta: Costa Rica a París" << endl;
+    auto result = dijkstra(graph, "Costa Rica", "París");
+    // double distance = result.first; // Distancia total por si se necesita
+    Graph subgraph = result.second;
+
+    cout << "---------------------------------------------------------------" << endl;
+
+    // Imprimir el subgrafo
+    subgraph.printGraph();
 
 
     cout << "¡El grafo ha sido guardado correctamente!" << endl;

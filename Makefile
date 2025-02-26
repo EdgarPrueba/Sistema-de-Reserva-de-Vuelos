@@ -17,7 +17,7 @@ $(BUILD_DIR):
 all: $(PART1_EXECS)
 
 # Compilar los ejecutables de la Parte 1
-part_persistence: $(SRC_DIR)/persistence/test_persistence.cpp $(SRC_DIR)/persistence/FileManager.cpp $(SRC_DIR)/graph/Graph.cpp | $(BUILD_DIR)
+part_persistence: $(SRC_DIR)/persistence/test_persistence.cpp $(SRC_DIR)/persistence/FileManager.cpp $(SRC_DIR)/graph/Graph.cpp $(SRC_DIR)/algorithms/Dijkstra.cpp | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/$@ $^
 
 # Compilar el test de Graph
