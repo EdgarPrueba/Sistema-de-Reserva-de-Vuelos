@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "seconddialog.h"
+#include "admin.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,5 +26,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    secondDialog *ventanaUsuario;  // Instancia persistente de la ventana del usuario
+    Admin *ventanaAdmin;
 };
 #endif // MAINWINDOW_H
