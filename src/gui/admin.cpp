@@ -8,6 +8,8 @@ Admin::Admin(QWidget *parent)
     , ui(new Ui::Admin)
 {
     ui->setupUi(this);
+
+    inicializarCiudades();
 }
 
 Admin::~Admin()
@@ -15,7 +17,7 @@ Admin::~Admin()
     delete ui;
 }
 
-void Admin::edgesToString() {
+void Admin::inicializarCiudades() {
     QStringList ciudades;
 
     // Obtener la lista de ciudades desde el grafo
@@ -31,6 +33,7 @@ void Admin::edgesToString() {
 void Admin::actualizarCiudades(QStringList ciudades) {
     // Limpiar antes de actualizar
     ui->comboBoxCiudades->clear();
+    ui->comboBoxCiudadOrigen->clear();
     ui->comboBoxCiudadDestino->clear();
 
     // Actualizar comboBoxes
@@ -44,10 +47,10 @@ void Admin::on_btnAgregar_clicked() {
     QString nuevaCiudad = ui->lineEditCiudad->text().trimmed();
 
     if (!nuevaCiudad.isEmpty()) {
-        std::string ciudadStr = nuevaCiudad.toStdString();
+        std::string strCiudad = nuevaCiudad.toStdString();
 
-        if (grafoCiudades.addVertex(ciudadStr)) {  // Agregar la ciudad al grafo
-            edgesToString();  // Actualizar el ComboBox con las ciudades del grafo
+        if (grafoCiudades.addVertex(strCiudad)) {  // Agregar la ciudad al grafo
+            inicializarCiudades();  // Actualizar el ComboBox con las ciudades del grafo
             ui->lineEditCiudad->clear();  // Limpiar el campo
         } else {
             QMessageBox::warning(this, "Error", "La ciudad ya existe en el grafo.");
@@ -73,18 +76,14 @@ void Admin::on_btnEliminar_clicked() {
 
         // Verificar la respuesta del usuario
         if (confirmBox.exec() == QMessageBox::Yes) {
-            std::string ciudadStr = ciudadEliminar.toStdString();
-
-            if (grafoCiudades.removeVertex(ciudadStr)) {  // Eliminar del grafo
-                edgesToString();  // Actualizar el ComboBox
-            } else {
-                QMessageBox::warning(this, "Error", "La ciudad no existe en el grafo.");
-            }
+            std::string strCiudad = ciudadEliminar.toStdString();
+            grafoCiudades.removeVertex(strCiudad);
+            inicializarCiudades();
         }
     }
 }
 
-void Admin::on_pushButton_clicked()
+void Admin::on_btnAgregarConexion_clicked()
 {
     // Guardar la selección del administrador en variables
     QString qstrciudadOrigen = ui->comboBoxCiudadOrigen->currentText();
@@ -110,20 +109,62 @@ void Admin::on_pushButton_clicked()
     // Verificar la respuesta del usuario
     if (connectionConfirmationBox.exec() == QMessageBox::Yes) {
         QMessageBox confirmationMessage;
+
+        // Mensajes de error
         if (strCiudadOrigen == strCiudadDestino) {
-            // Mensaje de error
             QMessageBox::critical(this, "Error", "No se puede conectar una ciudad a sí misma.");
         } else if (!distancia) {
-            // Mensaje de error
             QMessageBox::critical(this, "Error", "La distancia entre dos ciudades no puede ser 0 km.");
+        } else if (grafoCiudades.isEdge(strCiudadOrigen, strCiudadDestino) == true) {
+            QMessageBox::critical(this, "Error", "Esta conexión ya existe.");
+        // Mensaje de confirmación
         } else {
             // Añadir conexión al grafo
             grafoCiudades.addEdge(strCiudadOrigen, strCiudadDestino, distancia);
 
-            // Mensaje de confirmación
             QMessageBox::information(this, "Confirmación", "Esta conexión fue agregada con éxito.");
         }
     }
 
+}
+
+
+void Admin::on_btnEliminarConexion_clicked()
+{
+    // Guardar la selección del administrador en variables
+    QString qstrciudadOrigen = ui->comboBoxCiudadOrigen->currentText();
+    QString qstrciudadDestino = ui->comboBoxCiudadDestino->currentText();
+
+    // Convertir de QString a string convencional
+    std::string strCiudadOrigen = qstrciudadOrigen.toStdString();
+    std::string strCiudadDestino = qstrciudadDestino.toStdString();
+
+    // Mensaje para confirmar eliminación de conexión
+    QMessageBox eliminationConfirmationBox;
+    eliminationConfirmationBox.setIcon(QMessageBox::Warning);
+    eliminationConfirmationBox.setWindowTitle("Confirmar conexión");
+    eliminationConfirmationBox.setText(QString("¿Estás seguro que deseas eliminar esta conexión?\nCiudad Origen: %1\nCiudad Destino: %2")
+            .arg(qstrciudadOrigen)
+            .arg(qstrciudadDestino)
+    );
+    eliminationConfirmationBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    eliminationConfirmationBox.setDefaultButton(QMessageBox::No);
+
+    // Verificar la respuesta del usuario
+    if (eliminationConfirmationBox.exec() == QMessageBox::Yes) {
+        QMessageBox confirmationMessage;
+        if (strCiudadOrigen == strCiudadDestino) {
+            // Mensaje de error
+            QMessageBox::critical(this, "Error", "Esta conexión no existe.");
+        } else if (grafoCiudades.isEdge(strCiudadOrigen, strCiudadDestino) != true) {
+            QMessageBox::critical(this, "Error", "Esta conexión no existe.");
+        } else {
+            // Añadir conexión al grafo
+            grafoCiudades.removeEdge(strCiudadOrigen, strCiudadDestino);
+
+            // Mensaje de confirmación
+            QMessageBox::information(this, "Confirmación", "Esta conexión fue eliminada con éxito.");
+        }
+    }
 }
 

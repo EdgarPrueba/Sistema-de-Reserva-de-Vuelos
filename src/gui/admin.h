@@ -15,6 +15,7 @@ class Admin : public QDialog
 public:
     explicit Admin(QWidget *parent = nullptr);
     ~Admin();
+    void inicializarCiudades();
     void actualizarCiudades(QStringList ciudades); //Método para actualizar lista
 
 signals:
@@ -25,10 +26,10 @@ private slots:
     void on_btnAgregar_clicked();
     void on_btnEliminar_clicked();
 
-    void on_pushButton_clicked();
+    void on_btnAgregarConexion_clicked();
+    void on_btnEliminarConexion_clicked();
 
 private:
-    void edgesToString(); // Nueva función para extraer datos del grafo
     Graph grafoCiudades; // Instancia del grafo
 
 private:
