@@ -1,0 +1,17 @@
+Source,Target,Weight
+Costa Rica,Brasil,12
+Costa Rica,París,1100
+Costa Rica,Doha,900
+NuevaYork,Estambul,800
+Doha,Chicago,700
+Doha,Costa Rica,900
+Pekín,Chicago,1200
+Chicago,Doha,700
+Chicago,Pekín,1200
+Estambul,NuevaYork,800
+París,Argentina,1
+París,Costa Rica,1100
+Brasil,Argentina,15
+Brasil,Costa Rica,12
+Argentina,París,1
+Argentina,Brasil,15

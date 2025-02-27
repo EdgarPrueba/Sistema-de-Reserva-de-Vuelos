@@ -17,7 +17,7 @@ secondDialog::secondDialog(QWidget *parent)
     ui->setupUi(this);
 
     // Cargar grafo desde el archivo CSV
-    grafo = FileManager::loadGraphFromCSV("../gui/cuidades.csv");
+    grafo = FileManager::loadGraphFromCSV("../gui/ciudades_copy.csv");
 
     // Obtener los nodos del grafo
     vector<string> ciudades = grafo.getNodes();
