@@ -25,6 +25,9 @@ class Graph {
         // Método para añadir una conexión
         bool addEdge(string vertex1, string vertex2, double weight);
 
+        // Método para añadir una conexión dirigida
+        bool addEdgeDir(string vertex1, string vertex2, double weight);
+
         // Método para eliminar una ciudad
         bool removeVertex(string vertex);
 
@@ -33,6 +36,9 @@ class Graph {
 
         // Método para modificar el peso de una conexión
         bool modifyEdge(string vertex1, string vertex2, double weight);
+
+        // Método para obtener la lista de nodos (ciudades)
+        vector<string> getNodes() const;
 
         // Implementación del método getEdges para obtener las aristas del grafo
         const unordered_map<string, unordered_map<string, double>>& getEdges() const;

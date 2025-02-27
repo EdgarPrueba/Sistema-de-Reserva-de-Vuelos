@@ -40,6 +40,15 @@ bool Graph::addEdge(string vertex1, string vertex2, double weight) {
     return false;
 }
 
+// Método para añadir una conexión dirigida
+bool Graph::addEdgeDir(string vertex1, string vertex2, double weight) {
+    if (adjMatrix.count(vertex1) != 0 && adjMatrix.count(vertex2) != 0) {
+        adjMatrix[vertex1][vertex2] = weight; // Solo se agrega en una dirección
+        return true;
+    }
+    return false;
+}
+
 // Método para eliminar una ciudad
 bool Graph::removeVertex(string vertex) {
     if (adjMatrix.count(vertex) == 0) return false;
@@ -72,6 +81,15 @@ bool Graph::modifyEdge(string vertex1, string vertex2, double weight) {
         }
     }
     return false;
+}
+
+// Implementación del método getNodes para obtener la lista de nodos (ciudades)
+vector<string> Graph::getNodes() const {
+    vector<string> nodes;
+    for (const auto& [city, _] : adjMatrix) {
+        nodes.push_back(city);
+    }
+    return nodes;
 }
 
 // Implementación del método getEdges para obtener las aristas del grafo

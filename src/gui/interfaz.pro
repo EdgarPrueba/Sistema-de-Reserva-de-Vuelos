@@ -19,6 +19,7 @@ SOURCES += \
     seconddialog.cpp \
     thirddialog.cpp \
     Graph.cpp \
+    FileManager.cpp \
     Dijkstra.cpp
 
 
@@ -27,6 +28,7 @@ HEADERS += \
     mainwindow.h \
     seconddialog.h \
     Graph.h \
+    FileManager.h \
     Dijkstra.h \
     thirddialog.h
 

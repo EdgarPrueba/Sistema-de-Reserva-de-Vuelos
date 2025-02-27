@@ -2,10 +2,13 @@
 #include "ui_seconddialog.h"
 #include "Graph.h"
 #include "Dijkstra.h"
+#include "FileManager.h"
+
 #include <iostream>  // Para std::cout
 #include <QDebug>   // Para qDebug()
 #include <QMessageBox>
 
+using namespace std;
 
 secondDialog::secondDialog(QWidget *parent)
     : QDialog(parent)
@@ -13,23 +16,21 @@ secondDialog::secondDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
-    grafo.addVertex("San Jose");
-    grafo.addVertex("Alajuela");
-    grafo.addVertex("Cartago");
-    grafo.addVertex("Heredia");
-    grafo.addVertex("Limon");
-    grafo.addVertex("Guanacaste");
+    // Cargar grafo desde el archivo CSV
+    grafo = FileManager::loadGraphFromCSV("../gui/cuidades.csv");
 
-    grafo.addEdge("San Jose", "Alajuela", 10);
-    grafo.addEdge("San Jose", "Cartago", 15);
-    grafo.addEdge("Alajuela", "Cartago", 5);
-    grafo.addEdge("Cartago", "Heredia", 7);
-    grafo.addEdge("Heredia", "Limon", 20);
-    grafo.addEdge("Limon", "Guanacaste", 25);
+    // Obtener los nodos del grafo
+    vector<string> ciudades = grafo.getNodes();
 
-    QStringList ciudades = {"San Jose", "Alajuela", "Cartago", "Heredia", "Limon", "Guanacaste"};
-    ui->comboBox->addItems(ciudades);
-    ui->comboBox_2->addItems(ciudades);
+    // Convertir vector<string> a QStringList para usar en Qt
+    QStringList listaCiudades;
+    for (const string &ciudad : ciudades) {
+        listaCiudades.append(QString::fromStdString(ciudad));
+    }
+
+    // Agregar las ciudades a los ComboBox
+    ui->comboBox->addItems(listaCiudades);
+    ui->comboBox_2->addItems(listaCiudades);
 }
 
 secondDialog::~secondDialog() {
@@ -59,23 +60,49 @@ void secondDialog::on_pushButton_clicked() {
     QString origen = ui->comboBox->currentText();
     QString destino = ui->comboBox_2->currentText();
 
+    std::string origenStr = origen.toStdString();
+    std::string destinoStr = destino.toStdString();
+
+    // Mostrar las ciudades del grafo original en la consola
+    std::cout << "Ciudades cargadas en el grafo original:" << std::endl;
+    for (const auto& ciudad : grafo.getNodes()) {
+        std::cout << ciudad <<","<< std::endl;
+    }
+
+    // Imprimir las ciudades seleccionadas en consola
+    std::cout << "Ciudad origen seleccionada (QString):" << origen.toUtf8().constData() <<","<< std::endl;
+    std::cout << "Ciudad destino seleccionada (QString):" << destino.toUtf8().constData() <<","<< std::endl;
+    std::cout << "Ciudad origen convertida a std::string:" << origenStr << ","<< std::endl;
+    std::cout << "Ciudad destino convertida a std::string:" << destinoStr << ","<< std::endl;
+
+
     if (origen == destino) {
     QMessageBox::warning(this, "Error", "El origen y destino no pueden ser iguales.");
     return;
     }
+
+    // Ejecutar el algoritmo de Dijkstra
+    auto result = dijkstra(grafo, origen.toStdString(), destino.toStdString());
+    // double distancia = result.first;                // Distancia total
+
+    // Obtener el subgrafo
+    Graph subgrafo = result.second;
+
     std::vector<std::string> ruta;
-    //Ejecutar el algoritmo de Dijkstra
-    //std::vector<std::string> ruta = dijkstra(grafo, origen.toStdString(), destino.toStdString());
-    double distancia = dijkstra(grafo, origen.toStdString(), destino.toStdString());
-
-    //std::vector<std::string> ruta = grafo.dijkstra(origen.toStdString(), destino.toStdString());
-    //std::vector<std::string> ruta = dijkstra(origen.toStdString(), destino.toStdString());
+    for (const auto& nodo : subgrafo.getNodes()) {  // getNodes es solo un ejemplo, adapta según tu implementación
+        // Agregar cada nodo a la ruta
+        ruta.push_back(nodo);
+    }
 
 
+    // Verificar si hay una ruta válida
     if (ruta.empty()) {
         QMessageBox::warning(this, "Error", "No se encontró una ruta.");
         return;
     }
+
+    // Invertir la ruta para que coincida con la salida correcta de Dijkstra
+    std::reverse(ruta.begin(), ruta.end());
 
     //Mostrar la ruta en un QMessageBox
     QString mensaje = "Ruta óptima:\n";
