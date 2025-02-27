@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "seconddialog.h"
 #include "admin.h"
-
+#include "QFile"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +18,12 @@ MainWindow::~MainWindow()
     delete ui;
     delete ventanaUsuario;
     delete ventanaAdmin;
+
+    // Eliminar ciudades_copy.csv al cerrar la aplicación
+    QString copiaArchivo = "../gui/ciudades_copy.csv";
+    if (QFile::exists(copiaArchivo)) {
+        QFile::remove(copiaArchivo);
+    }
 }
 
 void MainWindow::on_pushButton_2_clicked()//este es el boton del usuario

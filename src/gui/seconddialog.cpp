@@ -7,6 +7,7 @@
 #include <iostream>  // Para std::cout
 #include <QDebug>   // Para qDebug()
 #include <QMessageBox>
+#include "QFile"
 
 using namespace std;
 
@@ -16,8 +17,15 @@ secondDialog::secondDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Cargar grafo desde el archivo CSV
-    grafo = FileManager::loadGraphFromCSV("../gui/ciudades_copy.csv");
+    QString archivoCopia = "../gui/ciudades_copy.csv";
+    QString archivoOriginal = "../gui/ciudades.csv";
+
+    // Si existe ciudades_copy.csv, cargarlo; si no, cargar ciudades.csv
+    if (QFile::exists(archivoCopia)) {
+        grafo = FileManager::loadGraphFromCSV(archivoCopia.toStdString());
+    } else {
+        grafo = FileManager::loadGraphFromCSV(archivoOriginal.toStdString());
+    }
 
     // Obtener los nodos del grafo
     vector<string> ciudades = grafo.getNodes();

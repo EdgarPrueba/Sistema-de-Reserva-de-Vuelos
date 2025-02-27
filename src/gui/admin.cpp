@@ -3,6 +3,7 @@
 #include "ui_admin.h"
 #include "Graph.h"
 #include "FileManager.h"
+#include "QFile"
 
 Admin::Admin(QWidget *parent)
     : QDialog(parent)
@@ -19,8 +20,15 @@ Admin::~Admin()
 }
 
 void Admin::inicializarCiudades() {
-    // Cargar el grafo desde el archivo CSV
-    grafoCiudades = FileManager::loadGraphFromCSV("../gui/cuidades.csv");
+    QString archivoCopia = "../gui/ciudades_copy.csv";
+    QString archivoOriginal = "../gui/ciudades.csv";
+
+    // Si existe ciudades_copy.csv, cargarlo primero; si no, cargar ciudades.csv
+    if (QFile::exists(archivoCopia)) {
+        grafoCiudades = FileManager::loadGraphFromCSV(archivoCopia.toStdString());
+    } else {
+        grafoCiudades = FileManager::loadGraphFromCSV(archivoOriginal.toStdString());
+    }
 
     QStringList ciudades;
 
@@ -51,29 +59,26 @@ void Admin::actualizarCiudades(QStringList ciudades) {
 }
 
 // Botón para agregar ciudad
+// Solo la agrega al csv si se le pasa la conexión
 void Admin::on_btnAgregar_clicked() {
     QString nuevaCiudad = ui->lineEditCiudad->text().trimmed();
 
     if (!nuevaCiudad.isEmpty()) {
         std::string strCiudad = nuevaCiudad.toStdString();
-        // Imprimir antes de agregar
-        std::cout << "Ciudades antes de agregar: " << std::endl;
-        for (const auto& element : grafoCiudades.getEdges()) {
-            std::cout << element.first << std::endl;
-        }
 
         if (grafoCiudades.addVertex(strCiudad)) {  // Agregar la ciudad al grafo
             std::cout << "Ciudad agregada correctamente: " << strCiudad << std::endl;
-            inicializarCiudades();  // Actualizar el ComboBox con las ciudades del grafo
+
+            // Actualizar los ComboBox sin recargar el CSV
+            QStringList ciudades;
+            for (const auto& element : grafoCiudades.getEdges()) {
+                ciudades.append(QString::fromStdString(element.first));
+            }
+            actualizarCiudades(ciudades);
 
             // Guardar una copia del grafo
             FileManager::saveGraphToCSV(grafoCiudades, "../gui/ciudades_copy.csv");
 
-            // Imprimir después de agregar
-            std::cout << "Ciudades después de agregar: " << std::endl;
-            for (const auto& element : grafoCiudades.getEdges()) {
-                std::cout << element.first << std::endl;
-            }
             ui->lineEditCiudad->clear();  // Limpiar el campo
         } else {
             QMessageBox::warning(this, "Error", "La ciudad ya existe en el grafo.");
