@@ -2,6 +2,9 @@
 #define SECONDDIALOG_H
 
 #include <QDialog>
+#include "Graph.h"
+#include "Dijkstra.h"
+
 
 namespace Ui {
 class secondDialog;
@@ -24,12 +27,13 @@ public slots:
     void agregarCiudad(QString ciudad);
     void eliminarCiudad(QString ciudad);
 
-private slots:  // 🔹 Agregar esto
+private slots:  //
     void on_pushButton_clicked();
 
 
 private:
     Ui::secondDialog *ui;
+    Graph grafo;  //
 };
 
 #endif // SECONDDIALOG_H

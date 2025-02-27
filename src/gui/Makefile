@@ -56,7 +56,9 @@ SOURCES       = admin.cpp \
 		main.cpp \
 		mainwindow.cpp \
 		seconddialog.cpp \
-		thirddialog.cpp moc_admin.cpp \
+		thirddialog.cpp \
+		Graph.cpp \
+		Dijkstra.cpp moc_admin.cpp \
 		moc_mainwindow.cpp \
 		moc_seconddialog.cpp \
 		moc_thirddialog.cpp
@@ -65,6 +67,8 @@ OBJECTS       = admin.o \
 		mainwindow.o \
 		seconddialog.o \
 		thirddialog.o \
+		Graph.o \
+		Dijkstra.o \
 		moc_admin.o \
 		moc_mainwindow.o \
 		moc_seconddialog.o \
@@ -138,6 +142,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -160,11 +165,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		interfaz.pro admin.h \
 		mainwindow.h \
 		seconddialog.h \
+		Graph.h \
+		Dijkstra.h \
 		thirddialog.h admin.cpp \
 		main.cpp \
 		mainwindow.cpp \
 		seconddialog.cpp \
-		thirddialog.cpp
+		thirddialog.cpp \
+		Graph.cpp \
+		Dijkstra.cpp
 QMAKE_TARGET  = interfaz
 DESTDIR       = 
 TARGET        = interfaz
@@ -245,6 +254,7 @@ Makefile: interfaz.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -335,6 +345,7 @@ Makefile: interfaz.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -370,8 +381,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents admin.h mainwindow.h seconddialog.h thirddialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents admin.cpp main.cpp mainwindow.cpp seconddialog.cpp thirddialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents admin.h mainwindow.h seconddialog.h Graph.h Dijkstra.h thirddialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents admin.cpp main.cpp mainwindow.cpp seconddialog.cpp thirddialog.cpp Graph.cpp Dijkstra.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents admin.ui mainwindow.ui seconddialog.ui thirddialog.ui $(DISTDIR)/
 
 
@@ -408,16 +419,23 @@ compiler_moc_header_make_all: moc_admin.cpp moc_mainwindow.cpp moc_seconddialog.
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_admin.cpp moc_mainwindow.cpp moc_seconddialog.cpp moc_thirddialog.cpp
 moc_admin.cpp: admin.h \
+		Graph.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danny/Documents/Universidad/Estructuras/Sistema-de-Reserva-de-Vuelos/src/gui/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danny/Documents/Universidad/Estructuras/Sistema-de-Reserva-de-Vuelos/src/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include admin.h -o moc_admin.cpp
 
 moc_mainwindow.cpp: mainwindow.h \
+		seconddialog.h \
+		Graph.h \
+		Dijkstra.h \
+		admin.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danny/Documents/Universidad/Estructuras/Sistema-de-Reserva-de-Vuelos/src/gui/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danny/Documents/Universidad/Estructuras/Sistema-de-Reserva-de-Vuelos/src/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_seconddialog.cpp: seconddialog.h \
+		Graph.h \
+		Dijkstra.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/danny/Documents/Universidad/Estructuras/Sistema-de-Reserva-de-Vuelos/src/gui/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/danny/Documents/Universidad/Estructuras/Sistema-de-Reserva-de-Vuelos/src/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include seconddialog.h -o moc_seconddialog.cpp
@@ -461,25 +479,41 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 admin.o: admin.cpp admin.h \
+		Graph.h \
 		ui_admin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o admin.o admin.cpp
 
-main.o: main.cpp mainwindow.h
+main.o: main.cpp mainwindow.h \
+		seconddialog.h \
+		Graph.h \
+		Dijkstra.h \
+		admin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
-		ui_mainwindow.h \
 		seconddialog.h \
-		admin.h
+		Graph.h \
+		Dijkstra.h \
+		admin.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 seconddialog.o: seconddialog.cpp seconddialog.h \
+		Graph.h \
+		Dijkstra.h \
 		ui_seconddialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o seconddialog.o seconddialog.cpp
 
 thirddialog.o: thirddialog.cpp thirddialog.h \
 		ui_thirddialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o thirddialog.o thirddialog.cpp
+
+Graph.o: Graph.cpp Graph.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Graph.o Graph.cpp
+
+Dijkstra.o: Dijkstra.cpp Dijkstra.h \
+		Graph.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Dijkstra.o Dijkstra.cpp
 
 moc_admin.o: moc_admin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_admin.o moc_admin.cpp
