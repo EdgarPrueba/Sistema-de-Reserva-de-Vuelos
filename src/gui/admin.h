@@ -2,6 +2,7 @@
 #define ADMIN_H
 
 #include <QDialog>
+#include "Graph.h"
 
 namespace Ui {
 class Admin;
@@ -24,6 +25,11 @@ private slots:
     void on_btnAgregar_clicked();
     void on_btnEliminar_clicked();
 
+    void on_pushButton_clicked();
+
+private:
+    void edgesToString(); // Nueva función para extraer datos del grafo
+    Graph grafoCiudades; // Instancia del grafo
 
 private:
     Ui::Admin *ui;
