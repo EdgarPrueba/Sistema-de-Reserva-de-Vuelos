@@ -1,7 +1,7 @@
 #include "../../include/algorithms/Dijkstra.h"
 
 // Implementación de la función Dijkstra
-double dijkstra(const Graph& graph, const string& origin, const string& destination)
+pair<double, Graph> dijkstra(const Graph& graph, const string& origin, const string& destination)
 {
     const auto& adjMatrix = graph.getEdges();
 
@@ -9,7 +9,7 @@ double dijkstra(const Graph& graph, const string& origin, const string& destinat
     if (adjMatrix.find(origin) == adjMatrix.end() || 
         adjMatrix.find(destination) == adjMatrix.end()) {
         cout << "Una o ambas ciudades no existen en el grafo.\n";
-        return -1;
+        return {-1, Graph()}; // Retornar valor inválido y grafo vacío
     }
 
     // Mapa para las distancias mínimas desde 'origin' a cada ciudad
@@ -67,7 +67,7 @@ double dijkstra(const Graph& graph, const string& origin, const string& destinat
     // Si la distancia a destination sigue siendo inf no hay ruta
     if (dist[destination] == INF) {
         cout << "No existe ruta entre " << origin << " y " << destination << ".\n";
-        return INF;
+        return {INF, Graph()}; // Retornar valor inválido y grafo vacío
     }
 
     // Reconstruimos la ruta óptima recorriendo parent desde destination hasta origin
@@ -87,6 +87,22 @@ double dijkstra(const Graph& graph, const string& origin, const string& destinat
     }
     cout << "\nDistancia total = " << dist[destination] << " km\n";
 
+    // Crear un subgrafo con la ruta más corta
+    Graph subgraph;
+    for (size_t i = 0; i < path.size() - 1; ++i) {
+        const string& currentCity = path[i];
+        const string& nextCity = path[i + 1];
+    
+        // Agregar nodos al subgrafo
+        subgraph.addVertex(currentCity);
+        subgraph.addVertex(nextCity);
+    
+        // Agregar arista al subgrafo (solo la conexión directa de la ruta)
+        double weight = adjMatrix.at(currentCity).at(nextCity);
+        subgraph.addEdgeDir(currentCity, nextCity, weight);  // Solo agregar en una dirección
+    }
+
     // Retornamos la distancia mínima
-    return dist[destination];
+    return {dist[destination], subgraph};
+
 }

@@ -1,6 +1,7 @@
 # Ignorar archivos generados
 /build/
 /bin/
+.vscode
 
 # Archivos temporales de Qt
 *.moc
