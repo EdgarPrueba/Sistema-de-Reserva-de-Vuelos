@@ -39,6 +39,9 @@ class Graph {
 
         // Método para obtener aristas de un vértice específico
         const unordered_map<std::string, double> getEdges(string vertex) const;
+
+        // Método para verificar si existe una conexión entre dos vértices
+        bool isEdge(string vertex1, string vertex2);
     
     public:
         std::vector<std::string> dijkstra(const std::string& origen, const std::string& destino);
