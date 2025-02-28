@@ -2,6 +2,7 @@
 /build/
 /bin/
 /src/build-interfaz-Qt_5_15_3_qt5_temporary-Debug/
+/src/build-interfaz-Desktop-Debug/
 .vscode
 
 # Archivos temporales de Qt
