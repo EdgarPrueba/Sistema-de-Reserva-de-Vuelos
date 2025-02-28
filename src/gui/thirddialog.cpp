@@ -33,21 +33,22 @@ thirdDialog::~thirdDialog() {
 }
 
 void thirdDialog::loadGraph() {
-    qDebug() << "Intentando cargar grafo desde ciudades.csv...";
 
-    // Copiar ciudades.csv al ejecutable
-    QFile::remove("/home/cristhian01/Sistema-de-Reserva-de-Vuelos/src/build-interfaz-Desktop-Debug/ciudades.csv");
-    QFile::copy("/home/cristhian01/Sistema-de-Reserva-de-Vuelos/src/gui/ciudades.csv",
-                "/home/cristhian01/Sistema-de-Reserva-de-Vuelos/src/build-interfaz-Desktop-Debug/ciudades.csv");
+    Graph graph;
+    //Rutas de archivos
+    QString archivoCopia = "../gui/ciudades_copy.csv";
+    QString archivoOriginal = "../gui/ciudades.csv";
 
-    QFile csvFile("ciudades.csv");
-    if (!csvFile.exists()) {
-        qDebug() << "Error: El archivo ciudades.csv no existe en la ruta esperada.";
-        return;
+    // Si existe ciudades_copy.csv, cargarlo; si no, cargar ciudades.csv
+    if (QFile::exists(archivoCopia)) {
+        std::cout << "Cargando grafo desde ciudades_copy.csv" << std::endl;
+        graph = FileManager::loadGraphFromCSV(archivoCopia.toStdString());
+    } else {
+        std::cout << "Cargando grafo desde ciudades.csv" << std::endl;
+        graph = FileManager::loadGraphFromCSV(archivoOriginal.toStdString());
     }
-    qDebug() << "Archivo ciudades.csv encontrado. Cargando datos...";
 
-    Graph graph = FileManager().loadGraphFromCSV("ciudades.csv");
+
     qDebug() << "Número de nodos en el grafo:" << graph.getNodes().size();
     qDebug() << "Número de conexiones en el grafo:" << graph.getEdges().size();
 
@@ -64,17 +65,48 @@ void thirdDialog::loadGraph() {
         for (const auto& [city2, weight] : edges) {
             if (!cityPositions.contains(QString::fromStdString(city1)) ||
                 !cityPositions.contains(QString::fromStdString(city2))) {
-                qDebug() << "Error: Una de las ciudades no tiene posición asignada:" << city1 << "->" << city2;
+                qDebug() << "Error: Una de las ciudades no tiene posición asignada:"
+                         << QString::fromStdString(city1) << "->" << QString::fromStdString(city2);
+
                 continue;
             }
 
             QPointF pos1 = cityPositions[QString::fromStdString(city1)];
             QPointF pos2 = cityPositions[QString::fromStdString(city2)];
 
+            // Dibujar la línea de conexión
             QGraphicsLineItem *line = new QGraphicsLineItem(pos1.x() + 10, pos1.y() + 10, pos2.x() + 10, pos2.y() + 10);
             line->setPen(QPen(Qt::black, 2));
             scene->addItem(line);
-            qDebug() << "Dibujando conexión:" << QString::fromStdString(city1) << "->" << QString::fromStdString(city2);
+
+            // Dibujar el peso en el centro de la línea
+            QPointF midPoint = (pos1 + pos2) / 2;  // Punto medio entre los nodos
+            QString weightText = QString::number(weight) + " km"; // Agregar "km" al peso
+            QGraphicsTextItem *weightLabel = new QGraphicsTextItem(weightText);
+
+            // Calcular el ángulo de la línea
+            double angle = std::atan2(pos2.y() - pos1.y(), pos2.x() - pos1.x()) * 180 / M_PI;
+            if (angle > 90 || angle < -90) {
+                angle += 180;  // Girar el texto para que siempre sea legible
+            }
+            weightLabel->setRotation(angle);
+    
+            // **Desplazar peso para evitar superposición**
+            double offset = 10; // Distancia de separación
+            QPointF perpendicularOffset(-offset * sin(angle * M_PI / 180), offset * cos(angle * M_PI / 180));
+    
+            // Alternar la posición de los pesos para evitar superposición
+            if (city1 < city2) {  // Ordenar para que los pesos de direcciones opuestas no se sobrepongan
+                weightLabel->setPos(midPoint + perpendicularOffset);
+            } else {
+                weightLabel->setPos(midPoint - perpendicularOffset);
+            }
+            
+            scene->addItem(weightLabel);
+
+
+            qDebug() << "Dibujando conexión:" << QString::fromStdString(city1) 
+            << "->" << QString::fromStdString(city2) << " con peso:" << weight;
         }
     }
     qDebug() << "Total de elementos en la escena después de agregar conexiones:" << scene->items().size();
@@ -88,7 +120,7 @@ void thirdDialog::loadGraph() {
         // Crear la etiqueta con el nombre de la ciudad
         QGraphicsTextItem *label = new QGraphicsTextItem(it.key());
         label->setFont(QFont("Arial", 10));
-        label->setDefaultTextColor(Qt::white); // Color del texto
+        label->setDefaultTextColor(Qt::red); // Color del texto
         label->setPos(it.value().x() + 5, it.value().y() - 20); // Ajuste de posición
         scene->addItem(label);
 
