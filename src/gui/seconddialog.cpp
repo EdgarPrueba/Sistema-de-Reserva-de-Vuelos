@@ -17,14 +17,23 @@ secondDialog::secondDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //Rutas de archivos
     QString archivoCopia = "../gui/ciudades_copy.csv";
     QString archivoOriginal = "../gui/ciudades.csv";
 
     // Si existe ciudades_copy.csv, cargarlo; si no, cargar ciudades.csv
     if (QFile::exists(archivoCopia)) {
+        std::cout << "Cargando grafo desde ciudades_copy.csv" << std::endl;
         grafo = FileManager::loadGraphFromCSV(archivoCopia.toStdString());
     } else {
+        std::cout << "Cargando grafo desde ciudades.csv" << std::endl;
         grafo = FileManager::loadGraphFromCSV(archivoOriginal.toStdString());
+    }
+
+    // Verificar qué nodos se cargaron
+    std::cout << "Ciudades cargadas en el grafo tras abrir la ventana:" << std::endl;
+    for (const auto& ciudad : grafo.getNodes()) {
+        std::cout << ciudad << "," << std::endl;
     }
 
     // Obtener los nodos del grafo
@@ -43,6 +52,9 @@ secondDialog::secondDialog(QWidget *parent)
 
 secondDialog::~secondDialog() {
     delete ui;
+    // Eliminar el archivo ciudades_copy.csv al cerrar la ventana de usuario
+    QFile archivo("../gui/ciudades_copy.csv");
+
 }
 
 void secondDialog::agregarCiudad(QString ciudad) {

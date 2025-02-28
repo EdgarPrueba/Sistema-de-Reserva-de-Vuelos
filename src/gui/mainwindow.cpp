@@ -29,10 +29,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_2_clicked()//este es el boton del usuario
 {
     // Botón para abrir la ventana del usuario
-        if (!ventanaUsuario) {
-            ventanaUsuario = new secondDialog(this);
-        }
-        ventanaUsuario->show();
+    if (ventanaUsuario) {
+        delete ventanaUsuario;  // Eliminar la instancia anterior
+        ventanaUsuario = nullptr;
+    }
+
+    ventanaUsuario = new secondDialog(this);
+    ventanaUsuario->show();
 
     /*
     hide();
