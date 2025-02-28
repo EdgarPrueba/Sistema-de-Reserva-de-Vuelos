@@ -7,7 +7,6 @@
 
 # Archivos temporales de Qt
 *.moc
-*.ui
 *.pro.user
 
 # Archivos de compilación

@@ -1,9 +1,31 @@
 ciudad1,ciudad2,peso
 Costa Rica,Doha,900
 Pekín,Chicago,1200
-Estambul,NuevaYork,800
+Estambul,Nueva York,800
 Doha,Chicago,700
 París,Costa Rica,1100
 Costa Rica,Brasil,12
 Brasil,Argentina,15
 Argentina,París,1
+Londres,Nueva York,500
+Londres,Estambul,240
+Doha,París,600
+Tokio,Los Angeles,5000
+Los Angeles,Miami,3000
+Miami,Brasil,2200
+São Paulo,Tokio,17000
+Madrid,Estambul,2500
+Roma,Costa Rica,1000
+Doha,Tokio,6500
+Buenos Aires,Miami,3500
+Santiago,Los Angeles,7000
+Lima,París,3000
+Lima,Miami,3800
+San Francisco,Sydney,12000
+Buenos Aires,Sydney,10500
+Dubai,Doha,400
+Barcelona,Lima,9400
+Madrid,Doha,6000
+Chicago,México,2000
+México,Nueva York,1500
+Madrid,Los Angeles,9800

@@ -16,7 +16,7 @@ thirdDialog::thirdDialog(QWidget *parent)
     , ui(new Ui::thirdDialog) {
     ui->setupUi(this);
     setWindowTitle("Mapa de Vuelos");
-    resize(700, 500);
+    resize(1000, 700);
 
     scene = new QGraphicsScene(this);
     view = new QGraphicsView(scene, this);
