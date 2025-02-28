@@ -40,6 +40,9 @@
     </item>
     <item>
      <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
       <property name="sizeType">
        <enum>QSizePolicy::Fixed</enum>
       </property>
@@ -74,6 +77,9 @@
     </item>
     <item>
      <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
       <property name="sizeType">
        <enum>QSizePolicy::Fixed</enum>
       </property>
@@ -109,6 +115,9 @@
       </item>
       <item row="0" column="1">
        <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
         <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
@@ -147,6 +156,19 @@
    </property>
    <property name="text">
     <string>Calcular Ruta</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>360</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mapa</string>
    </property>
   </widget>
  </widget>
