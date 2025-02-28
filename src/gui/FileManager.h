@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "../../include/graph/Graph.h"
+#include "Graph.h"
 
 class FileManager {
 public:
