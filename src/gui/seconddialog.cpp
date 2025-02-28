@@ -15,6 +15,7 @@ secondDialog::secondDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::secondDialog)
     , ventanaMapa(nullptr)
+    , ventanaSubMapa(nullptr)
 {
     ui->setupUi(this);
 
@@ -108,19 +109,24 @@ void secondDialog::on_pushButton_clicked() {
 
     // Obtener el subgrafo
     Graph subgrafo = result.second;
-
+    
     std::vector<std::string> ruta;
-    for (const auto& nodo : subgrafo.getNodes()) {  // getNodes es solo un ejemplo, adapta según tu implementación
+    for (const auto& nodo : subgrafo.getNodes()) {
         // Agregar cada nodo a la ruta
         ruta.push_back(nodo);
     }
 
-
     // Verificar si hay una ruta válida
     if (ruta.empty()) {
+        // Borrar CSV si no hay ruta
+        QFile archivo("../gui/subgrafo_viaje.csv");
+        archivo.remove();
         QMessageBox::warning(this, "Error", "No se encontró una ruta.");
         return;
     }
+
+    // Guardar el subgrafo en un archivo CSV
+    FileManager::saveGraphToCSV(subgrafo, "../gui/subgrafo_viaje.csv");
 
     // Invertir la ruta para que coincida con la salida correcta de Dijkstra
     std::reverse(ruta.begin(), ruta.end());
@@ -157,3 +163,19 @@ void secondDialog::on_pushButton_2_clicked()
 
 }
 
+void secondDialog::on_pushButton_3_clicked()
+{
+    if (ventanaSubMapa) {
+        delete ventanaSubMapa;
+        ventanaSubMapa = nullptr;
+    }
+    // Mostrar ventana si existe subMapa
+    QString subMapa = "../gui/subgrafo_viaje.csv";
+
+    if (!QFile::exists(subMapa)) {
+        QMessageBox::warning(this, "Error", "No se ha seleccionado una ruta existente.");
+        return;
+    }
+    ventanaSubMapa = new fourdDialog(this);
+    ventanaSubMapa->show();
+}

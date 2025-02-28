@@ -19,8 +19,14 @@ MainWindow::~MainWindow()
     delete ventanaUsuario;
     delete ventanaAdmin;
 
-    // Eliminar ciudades_copy.csv al cerrar la aplicación
+    // Eliminar ciudades_copy.csv y subgrafo_viaje.csv al cerrar la aplicación
     QString copiaArchivo = "../gui/ciudades_copy.csv";
+    QString subgrafoArchivo = "../gui/subgrafo_viaje.csv";
+
+    if (QFile::exists(subgrafoArchivo)) {
+        QFile::remove(subgrafoArchivo);
+    }
+
     if (QFile::exists(copiaArchivo)) {
         QFile::remove(copiaArchivo);
     }
@@ -32,6 +38,12 @@ void MainWindow::on_pushButton_2_clicked()//este es el boton del usuario
     if (ventanaUsuario) {
         delete ventanaUsuario;  // Eliminar la instancia anterior
         ventanaUsuario = nullptr;
+        
+        // Eliminar el subgrafo_viaje.csv al cerrar la ventana del usuario
+        QString subgrafoArchivo = "../gui/subgrafo_viaje.csv";
+        if (QFile::exists(subgrafoArchivo)) {
+            QFile::remove(subgrafoArchivo);
+        }
     }
 
     ventanaUsuario = new secondDialog(this);

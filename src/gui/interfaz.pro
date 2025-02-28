@@ -18,6 +18,7 @@ SOURCES += \
     mainwindow.cpp \
     seconddialog.cpp \
     thirddialog.cpp \
+    fourddialog.cpp \
     Graph.cpp \
     FileManager.cpp \
     Dijkstra.cpp
@@ -30,13 +31,16 @@ HEADERS += \
     Graph.h \
     FileManager.h \
     Dijkstra.h \
+    fourddialog.h \
     thirddialog.h
 
 
 FORMS += \
     admin.ui \
+    fourddialog.ui \
     mainwindow.ui \
     seconddialog.ui \
+    fourddialog.ui \
     thirddialog.ui
 
 # Default rules for deployment.

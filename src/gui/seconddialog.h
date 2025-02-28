@@ -5,6 +5,7 @@
 #include "Graph.h"
 #include "Dijkstra.h"
 #include "thirddialog.h"
+#include "fourddialog.h"
 
 
 namespace Ui {
@@ -29,15 +30,18 @@ public slots:
     void eliminarCiudad(QString ciudad);
 
 private slots:  //
-    void on_pushButton_clicked();
+    void on_pushButton_clicked(); // Botón para calcular la ruta más corta
 
 
-    void on_pushButton_2_clicked();
+    void on_pushButton_2_clicked(); // Botón para abrir la ventana de mapa
+
+    void on_pushButton_3_clicked(); // Botón para abrir la ventana del mapa
 
 private:
     Ui::secondDialog *ui;
     Graph grafo;  //
     thirdDialog *ventanaMapa;
+    fourdDialog *ventanaSubMapa;
 };
 
 #endif // SECONDDIALOG_H

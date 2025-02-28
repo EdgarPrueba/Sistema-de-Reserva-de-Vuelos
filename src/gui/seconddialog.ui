@@ -171,6 +171,19 @@
     <string>Mapa</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>360</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ruta</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
