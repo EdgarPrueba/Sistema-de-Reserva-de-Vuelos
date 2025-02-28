@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "Graph.h"
 #include "Dijkstra.h"
+#include "thirddialog.h"
 
 
 namespace Ui {
@@ -31,9 +32,12 @@ private slots:  //
     void on_pushButton_clicked();
 
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::secondDialog *ui;
     Graph grafo;  //
+    thirdDialog *ventanaMapa;
 };
 
 #endif // SECONDDIALOG_H

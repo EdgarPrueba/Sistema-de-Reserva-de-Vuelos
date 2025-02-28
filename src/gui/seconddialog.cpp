@@ -14,6 +14,7 @@ using namespace std;
 secondDialog::secondDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::secondDialog)
+    , ventanaMapa(nullptr)
 {
     ui->setupUi(this);
 
@@ -131,4 +132,16 @@ QStringList secondDialog::getCiudades() {
     return ciudades;
 }
 
+
+
+
+void secondDialog::on_pushButton_2_clicked()
+{
+    if (!ventanaMapa) {
+        ventanaMapa = new thirdDialog(this);
+    }
+    ventanaMapa->show();
+
+
+}
 
