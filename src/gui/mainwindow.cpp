@@ -75,15 +75,6 @@ void MainWindow::on_pushButton_clicked()//este es el boton del administrador
 
         // Pasar las ciudades al Admin
         ventanaAdmin->actualizarCiudades(ciudades);
-
-
-        // Desconectar señales previas antes de volver a conectar
-        disconnect(ventanaAdmin, &Admin::agregarCiudad, ventanaUsuario, &secondDialog::agregarCiudad);
-        disconnect(ventanaAdmin, &Admin::eliminarCiudad, ventanaUsuario, &secondDialog::eliminarCiudad);
-
-        // Conectar señales solo una vez
-        connect(ventanaAdmin, &Admin::agregarCiudad, ventanaUsuario, &secondDialog::agregarCiudad);
-        connect(ventanaAdmin, &Admin::eliminarCiudad, ventanaUsuario, &secondDialog::eliminarCiudad);
     }
 
     ventanaAdmin->show();

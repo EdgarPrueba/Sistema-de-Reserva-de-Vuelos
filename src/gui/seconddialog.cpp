@@ -59,24 +59,6 @@ secondDialog::~secondDialog() {
 
 }
 
-void secondDialog::agregarCiudad(QString ciudad) {
-
-    grafo.addVertex(ciudad.toStdString()); //agrega una ciudad al grafo
-    ui->comboBox->addItem(ciudad);
-    ui->comboBox_2->addItem(ciudad);
-}
-
-// Slot para eliminar ciudad
-void secondDialog::eliminarCiudad(QString ciudad) {
-    grafo.removeVertex(ciudad.toStdString()); //elimina una ciudad del grafo
-
-    int index1 = ui->comboBox->findText(ciudad);
-    int index2 = ui->comboBox_2->findText(ciudad);
-
-    if (index1 != -1) ui->comboBox->removeItem(index1);
-    if (index2 != -1) ui->comboBox_2->removeItem(index2);
-}
-
 void secondDialog::on_pushButton_clicked() {
     // Obtener el texto seleccionado de los comboBox
     QString origen = ui->comboBox->currentText();
