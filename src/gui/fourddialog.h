@@ -23,6 +23,7 @@ private:
 
     void loadGraph();  // Cargar y dibujar el grafo dinámico
     QPointF randomPosition(); // Generar posiciones aleatorias para ciudades
+    void agregarFlecha(QPointF start, QPointF end);
 };
 
 #endif // FOURDDIALOG_H
