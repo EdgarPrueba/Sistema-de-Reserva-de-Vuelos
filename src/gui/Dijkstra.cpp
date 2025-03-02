@@ -1,4 +1,4 @@
-#include "../../include/algorithms/Dijkstra.h"
+#include "Dijkstra.h"
 
 // Implementación de la función Dijkstra
 pair<double, Graph> dijkstra(const Graph& graph, const string& origin, const string& destination)

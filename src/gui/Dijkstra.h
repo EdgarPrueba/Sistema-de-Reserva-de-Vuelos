@@ -1,7 +1,7 @@
 #ifndef DIJKSTRA_H
 #define DIJKSTRA_H
 
-#include "../../include/graph/Graph.h"
+#include "Graph.h"
 #include <iostream>
 #include <unordered_map>
 #include <queue>
