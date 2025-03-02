@@ -1,13 +1,16 @@
 # Sistema de Reserva de Vuelos
 
 ## Participantes 
-**Daniela Fonseca Zumbado**
-**Edgar Alvarado Taleno**
-**Cristhian Rojas Álvarez**
-**Carlos Narajo Arias**
+**B93070 Daniela Fonseca Zumbado** - daniela.fonsecazumbado@ucr.ac.cr
+
+**Edgar Alvarado Taleno** - 
+
+**Cristhian Rojas Álvarez** - 
+
+**Carlos Narajo Arias** - 
 
 ---
-## Descripción:
+## Descripción
 
 Este proyecto es un Sistema de Reserva de Vuelos que permite gestionar vuelos, calcular rutas óptimas entre ciudades y visualizar la información en una interfaz gráfica interactiva. El sistema está diseñado para manejar ciudades como nodos y conexiones de vuelos como aristas en un grafo ponderado dirigido, utilizando algoritmos como Dijkstra o A* para encontrar las rutas más eficientes.
 
@@ -35,15 +38,19 @@ Persistencia de datos:
 Estructuras de datos utilizadas
 * Grafo ponderado dirigido para representar las ciudades y las conexiones de vuelos.
 
-* Cola de prioridad para la implementación de los algoritmos de Dijkstra o A*.
+* Cola de prioridad para la implementación de los algoritmos de Dijkstra.
 
 * Mapas o vectores para manejar pesos y conexiones.
 
-Tecnologías sugeridas
-* Interfaz gráfica: Qt para la visualización del mapa interactivo.
+* Lenguaje de programación: C++.
 
-* Lenguaje de programación: C++ (o el lenguaje que prefieras).
 ---
+
+## Librerías Utilizadas
+
+Este proyecto utiliza algunas librerías básicas, así como Qt para la interfaz gráfica del sistema.
+
+- [Qt version 5.15.3](https://doc.qt.io/qt-5/index.html)
 
 ## Estructura del Repositorio
 
@@ -65,6 +72,54 @@ Tecnologías sugeridas
 - **`docs/`**: Documentación adicional sobre el proyecto, incluyendo diagramas, manuales y guías.
 
 - **`resources/`**: Archivos y recursos como imágenes, iconos, configuraciones, etc.
+
+## Requisitos de Uso
+
+Antes de poder utilizar el programa, debes instalar Qt Creator. En Linux, puedes utilizar el siguiente comando en tu terminal:
+
+```console
+sudo apt install qt5-default qtcreator
+```
+
+Alternativamente, puedes referirte a esta guía para instalar el programa:
+
+- https://doc.qt.io/qt-5/qt-online-installation.html
+
+---
+
+## Guía de Uso
+
+### Iniciar el proyecto en Qt Creator
+
+Antes de utilizar el programa, debes instalar Qt Creator. Para esto puedes referirte a la sección de [Requisitos de Uso](Sistema-de-Reserva-de-Vuelos). Una vez lo hayas instalado, el siguiente paso es abrir el programa en Qt Creator.
+
+Cuando inicies la aplicación de Qt Creator en tu dispositivo, verás una pestaña como la siguiente:
+
+IMG1
+
+Haz click en la opción Open, indicada anteriormente. A continuación, busca el archivo `interfaz.pro` dentro de la carpeta de Sistema-de-Reserva-de-Vuelos. Para tu conveniencia, el siguiente debería ser el path:
+
+```console
+../Sistema-de-Reserva-de-Vuelos/src/gui/interfaz.pro
+```
+
+Una vez hecho esto, puedes iniciar el programa en el botón de reproducción que aparece abajo a la izquierda en la pantalla de Qt Creator.
+
+IMG2
+
+Una vez abierto el programa de Sistema de Reserva de Vuelos con Qt Creator, se presentan 2 opciones de acceso:
+
+- Usuario: Permite a un usuario de la aplicación hacer una reserva de vuelos.
+- Administrador: Permite a un administrador de la aerolínea crear o eliminar ciudades, así como conexiones entre 2 ciudades.
+
+Dependiendo de lo que desees hacer con el programa, selecciona alguna de estas opciones para continuar.
+ 
+### Acceso de Usuario: Reserva de Vuelos
+
+Notarás que entre la Ciudad Origen y Ciudad Destino hay vuelos de conexión. El programa calcula automáticamente la ruta con la menor distancia. Verás un mensaje donde se te indica la ruta que tomarás con tu reserva, desde la Ciudad Origen hasta la Ciudad Destino, y las ciudades intermedias.
+
+### Acceso de Administrador: Gestión de Ciudades y Conexiones
+
 
 
 ## Uso del `Makefile`
