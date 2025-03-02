@@ -3,11 +3,11 @@
 ## Participantes 
 **B93070 Daniela Fonseca Zumbado** - daniela.fonsecazumbado@ucr.ac.cr
 
-**Edgar Alvarado Taleno** - 
+**C10351 Edgar Alvarado Taleno** - edgar.alvaradotaleno@ucr.ac.cr
 
-**Cristhian Rojas Álvarez** - 
+**C16760 Cristhian Rojas Álvarez** - cristhian.rojasalvarez@ucr.ac.cr
 
-**Carlos Narajo Arias** - 
+**B44870 Carlos Narajo Arias** - carlos.naranjoarias@ucr.ac.cr
 
 ---
 ## Descripción
@@ -95,7 +95,7 @@ Antes de utilizar el programa, debes instalar Qt Creator. Para esto puedes refer
 
 Cuando inicies la aplicación de Qt Creator en tu dispositivo, verás una pestaña como la siguiente:
 
-IMG1
+![Qt Creator Start](img/01 Qt Creator Initial Page.png)
 
 Haz click en la opción Open, indicada anteriormente. A continuación, busca el archivo `interfaz.pro` dentro de la carpeta de Sistema-de-Reserva-de-Vuelos. Para tu conveniencia, el siguiente debería ser el path:
 
