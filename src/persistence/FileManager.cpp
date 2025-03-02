@@ -8,6 +8,10 @@ using namespace std;
 Graph FileManager::loadGraphFromCSV(const string& filename) {
     Graph graph;
     ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error al abrir el archivo CSV." << std::endl;
+        return graph; // Devolver un grafo vacío en caso de error
+    }
     string line;
     getline(file, line); // Ignorar la primera línea
 

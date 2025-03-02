@@ -48,7 +48,6 @@ bool Graph::addEdgeDir(string vertex1, string vertex2, double weight) {
     return false;
 }
 
-
 // Método para eliminar una ciudad
 bool Graph::removeVertex(string vertex) {
     if (adjMatrix.count(vertex) == 0) return false;
@@ -103,4 +102,14 @@ const unordered_map<std::string, double> Graph::getEdges(string vertex) const {
         return adjMatrix.at(vertex); // Retornar los las conexiones del vértice específico
     }
     return {}; // Si no encuentra el elemento en el mapa, retornar mapa vacío
+}
+
+// Método para verificar si existe una conexión entre dos vértices
+bool Graph::isEdge(string vertex1, string vertex2) {
+    if (adjMatrix.count(vertex1) != 0) {
+        if (adjMatrix.at(vertex1).count(vertex2) != 0) {
+            return true;
+        }
+    }
+    return false;
 }
