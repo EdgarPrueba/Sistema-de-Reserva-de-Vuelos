@@ -95,7 +95,7 @@ Antes de utilizar el programa, debes instalar Qt Creator. Para esto puedes refer
 
 Cuando inicies la aplicación de Qt Creator en tu dispositivo, verás una pestaña como la siguiente:
 
-![Qt Creator Start](img/01%20Qt%20Creator%20Initial%20Page.png)
+<img src="img/01%20Qt%20Creator%20Initial%20Page.png" width="700">
 
 Haz click en la opción Open, indicada anteriormente. A continuación, busca el archivo `interfaz.pro` dentro de la carpeta de Sistema-de-Reserva-de-Vuelos. Para tu conveniencia, el siguiente debería ser el path:
 
@@ -105,7 +105,7 @@ Haz click en la opción Open, indicada anteriormente. A continuación, busca el 
 
 Una vez hecho esto, puedes iniciar el programa en el botón de reproducción que aparece abajo a la izquierda en la pantalla de Qt Creator.
 
-IMG2
+<img src="img/02%20Qt%20Creator%20Project%20Page.png" width="700">
 
 Una vez abierto el programa de Sistema de Reserva de Vuelos con Qt Creator, se presentan 2 opciones de acceso:
 
@@ -116,11 +116,38 @@ Dependiendo de lo que desees hacer con el programa, selecciona alguna de estas o
  
 ### Acceso de Usuario: Reserva de Vuelos
 
-Notarás que entre la Ciudad Origen y Ciudad Destino hay vuelos de conexión. El programa calcula automáticamente la ruta con la menor distancia. Verás un mensaje donde se te indica la ruta que tomarás con tu reserva, desde la Ciudad Origen hasta la Ciudad Destino, y las ciudades intermedias.
+Como usuario, puedes realizar reservas de vuelos entre ciudades dentro del sistema.
+
+¿Cómo funciona?
+1. Selecciona tu Ciudad de Origen y Ciudad de Destino.
+2. El sistema calculará automáticamente la mejor ruta disponible utilizando el algoritmo de Dijkstra, asegurando la menor distancia entre los destinos.
+3. Se te mostrará un mensaje con la ruta más eficiente, incluyendo:
+- Ciudad de origen
+- Ciudades intermedias (si las hay)
+- Ciudad de destino
+
+<img src="img/04%20User%20Flight%20Reservation%202.png" width="500">
+
+Este proceso te garantiza la mejor opción de viaje dentro de la red de vuelos disponibles.
+
+Además del cálculo de la mejor ruta, el usuario puede acceder a una representación gráfica del grafo de conexiones entre ciudades. Esto permite visualizar:
+- Las ciudades disponibles en el sistema. Puedes accesar a estas con el botón `Mapa` a la izquierda del menú.
+
+<img src="img/04%20User%20Map.png" width="500">
+
+- Las conexiones directas entre las ciudades de tu reserva. Después de hacer una reserva, puedes hacer click en el botón `Ruta` a la derecha del menú y observar la ruta de tu vuelo.
+
+<img src="img/05%20User%20Submap.png" width="500">
 
 ### Acceso de Administrador: Gestión de Ciudades y Conexiones
 
+Los administradores tienen acceso a la gestión de la red de vuelos, permitiéndoles agregar y eliminar ciudades, así como definir conexiones entre ellas.
 
+Funciones del Administrador
+- **Crear una nueva ciudad:** Agregar una ciudad al sistema para que los usuarios puedan seleccionarla como origen o destino.
+- **Eliminar una ciudad:** Remover una ciudad, lo que también eliminará sus conexiones asociadas.
+- **Establecer una conexión entre dos ciudades:** Crear una nueva ruta de vuelo con una distancia específica.
+- **Eliminar una conexión existente:** Remover una ruta de vuelo entre dos ciudades.
 
 ## Uso del `Makefile`
 Se puede compilar el proyecto utilizando el Makefile. Para más detalles, consulte la documentación:
