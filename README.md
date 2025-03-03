@@ -91,7 +91,7 @@ Alternativamente, puedes referirte a esta guía para instalar el programa:
 
 ### Iniciar el proyecto en Qt Creator
 
-Antes de utilizar el programa, debes instalar Qt Creator. Para esto puedes referirte a la sección de [Requisitos de Uso](Sistema-de-Reserva-de-Vuelos). Una vez lo hayas instalado, el siguiente paso es abrir el programa en Qt Creator.
+Antes de utilizar el programa, debes instalar Qt Creator. Para esto puedes referirte a la sección de [Requisitos de Uso](#requisitos-de-uso). Una vez lo hayas instalado, el siguiente paso es abrir el programa en Qt Creator.
 
 Cuando inicies la aplicación de Qt Creator en tu dispositivo, verás una pestaña como la siguiente:
 
