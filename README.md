@@ -221,4 +221,4 @@ Se puede compilar el proyecto utilizando el Makefile. Para más detalles, consul
 ## Documentación de los Ejercicios
 Se utiliza GitHub Copilot para mejorar y facilitar la estructura del código. Puede referirse a la documentación en este archivo:
 
-[Documentación](docs/Proyecto-Estructuras.pdf)
+[Documentación](Proyecto-Estructuras.pdf)
