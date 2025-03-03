@@ -219,13 +219,6 @@ Se puede compilar el proyecto utilizando el Makefile. Para más detalles, consul
 [Documentación del Makefile](docs/make.md)
 
 ## Documentación de los Ejercicios
-Se utiliza GitHub Copilot para mejorar y facilitar la estructura del código.
+Se utiliza GitHub Copilot para mejorar y facilitar la estructura del código. Puede referirse a la documentación en este archivo:
 
-### Algorithms
-[Documentación de Algorithms](docs/algorithms.md)
-### Graph
-[Documentación de Graph](docs/graph.md)
-### GUI
-[Documentación de GUI](docs/gui.md)
-### Persitence
-[Documentación de Persistence](docs/persistence.md)
+[Documentación](docs/Proyecto-Estructuras.pdf)
